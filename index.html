@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตารางฟรีแลนซ์ Side Hustle</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161a;
+    --surface2: #1e1e24;
+    --border: #2a2a35;
+    --accent: #c8f04a;
+    --accent2: #f04a8a;
+    --accent3: #4ac8f0;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 60px 40px 40px;
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: fixed;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200,240,74,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,240,74,0.3);
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  h1 span { color: var(--accent); }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  /* FORM */
+  .form-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px 60px;
+  }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    margin-top: 36px;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+  @media (max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr 1fr; }
+    .hero, .form-wrap { padding-left: 20px; padding-right: 20px; }
+  }
+
+  .option-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    user-select: none;
+  }
+
+  .option-card:hover { border-color: var(--accent); background: var(--surface2); }
+
+  .option-card.selected {
+    border-color: var(--accent);
+    background: rgba(200,240,74,0.06);
+  }
+
+  .option-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .option-card .opt-icon { font-size: 22px; margin-bottom: 8px; }
+  .option-card .opt-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+  .option-card .opt-desc { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .field {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+  }
+
+  .field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .field select, .field input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .field input[type="time"] {
+    color-scheme: dark;
+    cursor: text;
+  }
+
+  .field input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
+
+  .field.error { border-color: var(--accent2); }
+  .field .error-msg { font-size: 11px; color: var(--accent2); margin-top: 6px; display: none; }
+  .field.error .error-msg { display: block; }
+
+  .autofill-badge {
+    font-size: 10px;
+    color: var(--accent);
+    margin-top: 6px;
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  .field select option { background: var(--surface2); }
+
+  .multi-select { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+
+  .chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip.selected { border-color: var(--accent); background: rgba(200,240,74,0.1); color: var(--accent); }
+
+  .generate-btn {
+    margin-top: 36px;
+    width: 100%;
+    padding: 18px;
+    background: var(--accent);
+    color: #0d0d0f;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .generate-btn:hover { background: #d8ff5a; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(200,240,74,0.25); }
+  .generate-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* SCHEDULE OUTPUT */
+  #output { display: none; max-width: 860px; margin: 0 auto; padding: 0 40px 80px; }
+
+  .output-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .output-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; }
+
+  .reset-btn {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    background: none;
+    border: 1.5px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover { color: var(--text); border-color: var(--muted); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+  }
+
+  .stat-card .stat-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-card .stat-label { font-size: 12px; color: var(--muted); }
+
+  /* WEEK GRID */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 700px) {
+    .week-grid { grid-template-columns: repeat(3, 1fr); }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    #output { padding-left: 20px; padding-right: 20px; }
+  }
+
+  .day-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 12px;
+    min-height: 160px;
+  }
+
+  .day-card.rest-day { opacity: 0.5; }
+  .day-card.work-day { border-color: rgba(200,240,74,0.2); }
+
+  .day-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .day-block {
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-bottom: 5px;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .block-main { background: rgba(75,75,100,0.4); color: #9999bb; }
+  .block-freelance { background: rgba(200,240,74,0.12); color: var(--accent); border-left: 2px solid var(--accent); }
+  .block-admin { background: rgba(240,74,138,0.1); color: var(--accent2); border-left: 2px solid var(--accent2); }
+  .block-rest { background: rgba(74,200,240,0.1); color: var(--accent3); border-left: 2px solid var(--accent3); }
+  .block-buffer { background: rgba(255,200,74,0.08); color: #f0c84a; border-left: 2px solid #f0c84a; }
+
+  .block-time { font-size: 10px; opacity: 0.7; margin-bottom: 2px; }
+  .block-label { font-weight: 600; }
+
+  /* TIPS */
+  .tips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+
+  @media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+  .tip-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .tip-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+  .tip-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .tip-body { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+  .print-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* UPLOAD SECTION */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 36px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    background: var(--surface);
+  }
+
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--accent);
+    background: rgba(200,240,74,0.04);
+  }
+
+  .upload-zone input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+
+  .upload-icon { font-size: 36px; margin-bottom: 12px; }
+  .upload-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .upload-desc { font-size: 13px; color: var(--muted); }
+
+  .upload-preview {
+    margin-top: 16px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: none;
+    position: relative;
+  }
+
+  .upload-preview img { width: 100%; max-height: 280px; object-fit: contain; background: var(--surface2); border-radius: var(--radius); }
+
+  .upload-preview .remove-img {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(0,0,0,0.7); color: #fff;
+    border: none; border-radius: 100px;
+    font-size: 12px; padding: 4px 10px;
+    cursor: pointer;
+  }
+
+  .ai-result-box {
+    margin-top: 16px;
+    background: var(--surface2);
+    border: 1.5px solid rgba(200,240,74,0.25);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: none;
+  }
+
+  .ai-result-box .ai-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .ai-slot {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(200,240,74,0.06);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 2px solid var(--accent);
+  }
+
+  .ai-slot-time { font-size: 12px; font-weight: 700; color: var(--accent); min-width: 90px; }
+  .ai-slot-desc { font-size: 13px; color: var(--text); line-height: 1.4; }
+
+  .ai-loading {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: var(--muted);
+    padding: 8px 0;
+  }
+
+  .ai-spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .analyze-btn {
+    margin-top: 14px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: none;
+  }
+
+  .analyze-btn:hover { background: rgba(200,240,74,0.1); }
+  .analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* GOOGLE CALENDAR EXPORT */
+  .gcal-section {
+    margin-top: 32px;
+  }
+
+  .gcal-events {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .gcal-event-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+  }
+
+  .gcal-event-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .gcal-event-info { flex: 1; min-width: 0; }
+  .gcal-event-name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gcal-event-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .gcal-open-btn {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    background: none;
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .gcal-open-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+  .gcal-note { font-size: 11px; color: var(--muted); margin-top: 8px; text-align: center; }
+
+  .ics-btn {
+    margin-top: 8px;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .ics-btn:hover { border-color: var(--accent3); color: var(--accent3); background: rgba(74,200,240,0.06); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Side Hustle Planner 🔥</div>
+  <h1>จัดตาราง<br><span>ให้ปังแบบไม่หมดแรง</span></h1>
+  <p class="subtitle">ตอบแค่ไม่กี่ข้อ แล้วรับตารางสัปดาห์ที่ฟิตกับไลฟ์สไตล์เลย — ทั้งงานประจำ งานฟรีแลนซ์ และเวลาพัก ครบจบในที่เดียว ✨</p>
+</div>
+
+<div class="form-wrap" id="form-section">
+
+  <div class="section-label">01 — งานฟรีแลนซ์ที่ทำคืออะไร?</div>
+  <div class="grid-2" id="freelance-type">
+    <div class="option-card" data-val="dev" onclick="pick('freelance-type', this)">
+      <div class="opt-icon">💻</div>
+      <div class="opt-title">โค้ด / เทค</div>
+      <div class="opt-desc">เว็บ แอป ระบบ อัตโนมัติ ข้อมูล</div>
+    </div>
+    <div class="option-card" data-val="design" onclick="pick('freelance-type', this)">
+      <div class="opt-icon">🎨</div>
+      <div class="opt-title">ดีไซน์ / ครีเอทีฟ</div>
+      <div class="opt-desc">UI/UX กราฟิก แบรนด์ดิ้ง วิดีโอ</div>
+    </div>
+    <div class="option-card" data-val="writing" onclick="pick('freelance-type', this)">
+      <div class="opt-icon">✍️</div>
+      <div class="opt-title">เขียน / คอนเทนต์</div>
+      <div class="opt-desc">คอนเทนต์ บทความ โซเชียล คัดลอก</div>
+    </div>
+    <div class="option-card" data-val="consulting" onclick="pick('freelance-type', this)">
+      <div class="opt-icon">📊</div>
+      <div class="opt-title">ที่ปรึกษา / กลยุทธ์</div>
+      <div class="opt-desc">โค้ชชิง การตลาด ให้คำปรึกษา</div>
+    </div>
+  </div>
+
+  <div class="section-label">02 — อาทิตย์นึงว่างทำฟรีแลนซ์ได้กี่ชั่วโมง?</div>
+  <div class="grid-3" id="hours-pick">
+    <div class="option-card" data-val="5" onclick="pick('hours-pick', this)">
+      <div class="opt-title">5–8 ชม.</div>
+      <div class="opt-desc">น้อยมาก — เพิ่งเริ่มต้น</div>
+    </div>
+    <div class="option-card" data-val="12" onclick="pick('hours-pick', this)">
+      <div class="opt-title">8–15 ชม.</div>
+      <div class="opt-desc">พอดี — กำลังบิ้วโมเมนตัม</div>
+    </div>
+    <div class="option-card" data-val="18" onclick="pick('hours-pick', this)">
+      <div class="opt-title">15–20 ชม.</div>
+      <div class="opt-desc">จัดเต็ม — ซีเรียสจริงจัง</div>
+    </div>
+  </div>
+
+  <div class="section-label">03 — ชอบทำฟรีแลนซ์ช่วงไหน? (เลือกได้หลายอัน)</div>
+  <div class="multi-select" id="time-prefs">
+    <div class="chip" data-val="earlymorning" onclick="toggleChip(this)">เช้าตรู่ก่อนไปทำงาน</div>
+    <div class="chip" data-val="lunch" onclick="toggleChip(this)">พักเที่ยง</div>
+    <div class="chip" data-val="evenings" onclick="toggleChip(this)">หัวค่ำหลังเลิกงาน</div>
+    <div class="chip" data-val="weekend-sat" onclick="toggleChip(this)">เสาร์</div>
+    <div class="chip" data-val="weekend-sun" onclick="toggleChip(this)">อาทิตย์</div>
+  </div>
+
+  <div class="section-label">04 — งานประจำเริ่ม-เลิกกี่โมง? <span style="color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">(เริ่มได้ตั้งแต่ 00:00 – 12:00 เท่านั้น)</span></div>
+  <div class="field-row">
+    <div class="field" id="field-job-start">
+      <label>เริ่มงาน</label>
+      <input type="time" id="job-start" value="09:00" min="00:00" max="12:00" oninput="validateTime(this,'field-job-start')">
+      <div class="error-msg">ต้องอยู่ระหว่าง 00:00 – 12:00 นะ</div>
+    </div>
+    <div class="field" id="field-job-end">
+      <label>เลิกงาน</label>
+      <input type="time" id="job-end" value="18:00" oninput="validateTime(this,'field-job-end')">
+      <div class="error-msg">ต้องหลังเวลาเริ่มงานนะ</div>
+    </div>
+  </div>
+
+  <div class="section-label">05 — ต้องการเวลาพักกี่ชั่วโมงต่อวัน?</div>
+  <div class="grid-3" id="rest-days">
+    <div class="option-card" data-val="6" onclick="pick('rest-days', this)">
+      <div class="opt-title">6 ชม. / วัน</div>
+      <div class="opt-desc">โหมด grind — พักน้อยสุด</div>
+    </div>
+    <div class="option-card" data-val="8" onclick="pick('rest-days', this)">
+      <div class="opt-title">8 ชม. / วัน</div>
+      <div class="opt-desc">บาลานซ์ — ทำได้ยาวๆ</div>
+    </div>
+    <div class="option-card" data-val="10" onclick="pick('rest-days', this)">
+      <div class="opt-title">10 ชม. / วัน</div>
+      <div class="opt-desc">ชิลล์ — สุขภาพมาก่อน</div>
+    </div>
+  </div>
+
+  <div class="section-label">06 — อัปโหลดตารางเรียน / ตารางงาน (ไม่บังคับ)</div>
+  <div class="upload-zone" id="upload-zone" ondragover="handleDrag(event,true)" ondragleave="handleDrag(event,false)" ondrop="handleDrop(event)">
+    <input type="file" id="schedule-img" accept="image/*" onchange="handleFile(this.files[0])">
+    <div class="upload-icon">📅</div>
+    <div class="upload-title">อัปโหลดรูปตารางของเธอได้เลย</div>
+    <div class="upload-desc">AI จะดูตารางแล้วหาช่องว่างที่เหมาะกับงานฟรีแลนซ์ให้ • รองรับ JPG, PNG</div>
+  </div>
+  <div class="upload-preview" id="upload-preview">
+    <img id="preview-img" src="" alt="ตัวอย่างตาราง">
+    <button class="remove-img" onclick="removeImg()">✕ เอาออก</button>
+  </div>
+  <button class="analyze-btn" id="analyze-btn" onclick="analyzeSchedule()">🔍 ให้ AI วิเคราะห์ตารางนี้</button>
+  <div class="ai-result-box" id="ai-result-box">
+    <div class="ai-label">✨ ช่องว่างที่ AI แนะนำ</div>
+    <div id="ai-slots"></div>
+  </div>
+
+  <button class="generate-btn" onclick="generate()">ออกแบบตารางให้เลย →</button>
+</div>
+
+<!-- OUTPUT -->
+<div id="output">
+  <div class="output-header">
+    <div class="output-title">ตารางของคุณ 🗓️</div>
+    <button class="reset-btn" onclick="reset()">← ทำใหม่</button>
+  </div>
+
+  <div class="stats-row" id="stats-row"></div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#4b4b64"></div> งานประจำ</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(200,240,74,0.5)"></div> โฟกัสงานฟรีแลนซ์</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(240,74,138,0.5)"></div> แอดมิน / ตอบลูกค้า</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(74,200,240,0.5)"></div> พักผ่อน / ชาร์จพลัง</div>
+    <div class="legend-item"><div class="legend-dot" style="background:rgba(240,200,74,0.5)"></div> เวลาส่วนตัว / บัฟเฟอร์</div>
+  </div>
+
+  <div class="week-grid" id="week-grid"></div>
+
+  <div class="divider"></div>
+
+  <div class="section-label" style="margin-top:0">กฎรักษาพลังงานของเธอ ⚡</div>
+  <div class="tips-grid" id="tips-grid"></div>
+
+  <div class="divider"></div>
+
+  <div class="gcal-section">
+    <div class="section-label" style="margin-top:0">📅 ส่งตารางไป Google Calendar</div>
+    <div class="gcal-events" id="gcal-events"></div>
+    <p class="gcal-note" style="margin-top:12px;text-align:left">👆 กดปุ่ม <strong style="color:var(--text)">+ เพิ่ม</strong> ทีละ event เพื่อเพิ่มใน Google Calendar — เบราว์เซอร์บล็อกการเปิดหลายแท็บพร้อมกันนะ</p>
+    <div class="divider" style="margin:20px 0"></div>
+    <div class="section-label" style="margin-top:0">📥 หรือจะ Export ทีเดียวทั้งหมด</div>
+    <button class="ics-btn" onclick="exportICS()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      ดาวน์โหลดไฟล์ .ics (นำเข้า Google Calendar ทีเดียวได้เลย)
+    </button>
+    <p class="gcal-note" style="margin-top:8px;text-align:left">วิธีใช้: ดาวน์โหลดไฟล์ → เปิดด้วย Google Calendar → กด "นำเข้า" ✅</p>
+  </div>
+
+  <p class="print-note" style="margin-top:16px">💡 เทิป: กด Ctrl+P แล้วเลือก Save as PDF เก็บไว้ดูตลอดได้เลย</p>
+</div>
+
+<script>
+let uploadedImageBase64 = null;
+let uploadedImageType = 'image/jpeg';
+
+function handleDrag(e, over) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.toggle('drag-over', over);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-zone').classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) handleFile(file);
+}
+
+function handleFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    uploadedImageBase64 = e.target.result.split(',')[1];
+    uploadedImageType = file.type || 'image/jpeg';
+    document.getElementById('preview-img').src = e.target.result;
+    document.getElementById('upload-preview').style.display = 'block';
+    document.getElementById('analyze-btn').style.display = 'block';
+    document.getElementById('ai-result-box').style.display = 'none';
+    document.getElementById('ai-slots').innerHTML = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeImg() {
+  uploadedImageBase64 = null;
+  document.getElementById('preview-img').src = '';
+  document.getElementById('upload-preview').style.display = 'none';
+  document.getElementById('analyze-btn').style.display = 'none';
+  document.getElementById('ai-result-box').style.display = 'none';
+  document.getElementById('schedule-img').value = '';
+  document.querySelectorAll('.autofill-badge').forEach(b => b.remove());
+}
+
+async function analyzeSchedule() {
+  if (!uploadedImageBase64) return;
+
+  const btn = document.getElementById('analyze-btn');
+  const resultBox = document.getElementById('ai-result-box');
+  const slotsDiv = document.getElementById('ai-slots');
+
+  const freelanceType = selections['freelance-type'];
+  const timePrefList = [...timePrefs].join(', ') || 'ไม่ระบุ';
+  const typeLabel = { dev:'โค้ด/เทค', design:'ดีไซน์/ครีเอทีฟ', writing:'เขียน/คอนเทนต์', consulting:'ที่ปรึกษา/กลยุทธ์' }[freelanceType] || 'ฟรีแลนซ์ทั่วไป';
+
+  btn.disabled = true;
+  btn.textContent = '⏳ กำลังวิเคราะห์...';
+  resultBox.style.display = 'block';
+  slotsDiv.innerHTML = `<div class="ai-loading"><div class="ai-spinner"></div>AI กำลังดูตารางของเธออยู่นะ รอแปบนึง...</div>`;
+
+  const prompt = `
+คุณคือผู้ช่วยวางแผนตาราง
+
+งานของคุณ:
+ดูรูปตารางเรียนหรือตารางงาน แล้ว:
+
+1. หาเวลาเริ่มต้นและสิ้นสุดของกิจกรรม/คาบเรียน/งานที่เร็วที่สุดและช้าที่สุดในตาราง
+2. หาช่วงเวลาว่างที่สามารถใช้ทำงานฟรีแลนซ์ประเภท "${typeLabel}" ได้
+
+ข้อมูลผู้ใช้:
+- ประเภทงานฟรีแลนซ์: ${typeLabel}
+- ช่วงเวลาที่ชอบทำงาน: ${timePrefList}
+
+กฎที่ต้องทำตามอย่างเคร่งครัด:
+- ตอบเป็น JSON เท่านั้น
+- ห้ามมีข้อความอื่นก่อนหรือหลัง JSON
+- ห้ามมี markdown เช่น \`\`\`
+- ห้ามอธิบาย
+
+รูปแบบคำตอบ (ต้องเหมือนนี้เท่านั้น):
+{
+  "scheduleStart": "HH:MM",
+  "scheduleEnd": "HH:MM",
+  "slots": [
+    { "time": "วัน เวลา เช่น จันทร์ 12:00-13:00", "desc": "คำอธิบายสั้นๆ ภาษาไทย" }
+  ]
+}
+
+กฎเพิ่มเติม:
+- ถ้าไม่เห็นเวลา → ใช้ null
+- ถ้าไม่มีช่องว่าง → "slots": []
+`;
+
+  try {
+    const response = await fetch('/.netlify/functions/claude', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2000,
+        messages: [{
+          role: 'user',
+          content: [
+            { type: 'image', source: { type: 'base64', media_type: uploadedImageType, data: uploadedImageBase64 } },
+            { type: 'text', text: prompt }
+          ]
+        }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.content?.find(b => b.type === 'text')?.text || '{}';
+
+
+    console.log("RAW CLAUDE RESPONSE:");
+console.log(raw);
+
+let clean = raw;
+
+// Remove markdown
+clean = clean.replace(/```json|```/g, '').trim();
+
+// Extract JSON object
+const firstBrace = clean.indexOf('{');
+const lastBrace = clean.lastIndexOf('}');
+if (firstBrace !== -1 && lastBrace !== -1) {
+  clean = clean.slice(firstBrace, lastBrace + 1);
+}
+
+let result;
+
+try {
+  result = JSON.parse(clean);
+} catch (e) {
+  console.error("JSON parse error:", e);
+
+  slotsDiv.innerHTML = `
+    <pre style="white-space: pre-wrap; font-size: 12px;">
+${raw}
+    </pre>
+  `;
+
+  return; // 🚨 STOP here instead of faking result
+}
+
+const slots = result.slots || [];
+
+    // Autofill time fields if AI detected them
+    if (result.scheduleStart && result.scheduleStart !== 'null') {
+      const startField = document.getElementById('job-start');
+      startField.value = result.scheduleStart;
+      document.getElementById('field-job-start').classList.remove('error');
+      showAutofillBadge('field-job-start', result.scheduleStart);
+    }
+    if (result.scheduleEnd && result.scheduleEnd !== 'null') {
+      const endField = document.getElementById('job-end');
+      endField.value = result.scheduleEnd;
+      document.getElementById('field-job-end').classList.remove('error');
+      showAutofillBadge('field-job-end', result.scheduleEnd);
+    }
+
+    if (!slots.length) {
+      slotsDiv.innerHTML = `<div style="font-size:13px;color:var(--muted);padding:8px 0">ดูแล้วตารางเต็มมากเลย 😅 ลองปรับลดกิจกรรมบางอย่างดูก่อนนะ</div>`;
+    } else {
+      slotsDiv.innerHTML = slots.map(s => `
+        <div class="ai-slot">
+          <div class="ai-slot-time">⏰ ${s.time}</div>
+          <div class="ai-slot-desc">${s.desc}</div>
+        </div>
+      `).join('');
+    }
+
+  } catch (err) {
+    slotsDiv.innerHTML = `<div style="font-size:13px;color:var(--accent2);">เกิดข้อผิดพลาด ลองใหม่อีกครั้งนะ 🙏</div>`;
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🔍 วิเคราะห์ใหม่อีกครั้ง';
+}
+
+function showAutofillBadge(fieldId, time) {
+  const field = document.getElementById(fieldId);
+  let badge = field.querySelector('.autofill-badge');
+  if (!badge) {
+    badge = document.createElement('div');
+    badge.className = 'autofill-badge';
+    field.appendChild(badge);
+  }
+  badge.textContent = `✨ AI กรอกให้ (${time}) — แก้ได้นะ`;
+}
+
+const selections = { 'freelance-type': null, 'hours-pick': null, 'rest-days': null };
+const timePrefs = new Set();
+
+function pick(groupId, el) {
+  document.querySelectorAll(`#${groupId} .option-card`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selections[groupId] = el.dataset.val;
+}
+
+function toggleChip(el) {
+  el.classList.toggle('selected');
+  const v = el.dataset.val;
+  timePrefs.has(v) ? timePrefs.delete(v) : timePrefs.add(v);
+}
+
+function validateTime(input, fieldId) {
+  const field = document.getElementById(fieldId);
+  if (fieldId === 'field-job-start') {
+    const [h, m] = input.value.split(':').map(Number);
+    const totalMins = h * 60 + m;
+    field.classList.toggle('error', totalMins > 720); // > 12:00 PM
+  } else {
+    const startVal = document.getElementById('job-start').value;
+    field.classList.toggle('error', input.value <= startVal);
+  }
+}
+
+function timeToHour(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  return h + m / 60;
+}
+
+function fmt(h) {
+  const totalMins = Math.round(h * 60);
+  const hrs = Math.floor(totalMins / 60) % 24;
+  const mins = totalMins % 60;
+  return `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}`;
+}
+
+function generate() {
+  if (!selections['freelance-type']) { alert('เลือกประเภทงานฟรีแลนซ์ก่อนนะ 🙏'); return; }
+  if (!selections['hours-pick']) { alert('บอกด้วยว่าว่างกี่ชั่วโมงต่ออาทิตย์ 🙏'); return; }
+  if (timePrefs.size === 0) { alert('เลือกช่วงเวลาที่ชอบทำงานสักอันนึงก่อนนะ 🙏'); return; }
+  if (!selections['rest-days']) { alert('บอกด้วยว่าต้องการพักกี่ชั่วโมง 🙏'); return; }
+
+  const startVal = document.getElementById('job-start').value;
+  const endVal = document.getElementById('job-end').value;
+  const startMins = timeToHour(startVal) * 60;
+
+  if (startMins > 720) { alert('เวลาเริ่มงานต้องอยู่ระหว่าง 00:00 – 12:00 นะ'); return; }
+  if (endVal <= startVal) { alert('เวลาเลิกงานต้องหลังเวลาเริ่มงานนะ'); return; }
+
+  const type = selections['freelance-type'];
+  const totalHrs = parseInt(selections['hours-pick']);
+  const restHrs = parseInt(selections['rest-days']);
+  const jobStart = timeToHour(startVal);
+  const jobEnd = timeToHour(endVal);
+
+  const restDayCount = restHrs >= 10 ? 2 : restHrs >= 8 ? 1 : 0;
+
+  const hasEarlyMorning = timePrefs.has('earlymorning');
+  const hasLunch = timePrefs.has('lunch');
+  const hasEvening = timePrefs.has('evenings');
+  const hasSat = timePrefs.has('weekend-sat');
+  const hasSun = timePrefs.has('weekend-sun');
+
+  const days = ['จ.','อ.','พ.','พฤ.','ศ.','ส.','อา.'];
+  const isWeekend = [false,false,false,false,false,true,true];
+
+  const restDaySet = new Set();
+  if (restDayCount >= 1) {
+    if (!hasSun) restDaySet.add(6); else restDaySet.add(0);
+  }
+  if (restDayCount >= 2) {
+    if (!hasSat && !restDaySet.has(5)) restDaySet.add(5);
+    else if (!restDaySet.has(6)) restDaySet.add(6);
+    else restDaySet.add(4);
+  }
+
+  const schedule = days.map((name, i) => {
+    const blocks = [];
+    const isRest = restDaySet.has(i);
+    const weekend = isWeekend[i];
+
+    if (isRest) {
+      blocks.push({ type:'rest', time:'ทั้งวัน', label:'วันพักเต็มๆ 🛌' });
+      return { name, blocks, isRest: true };
+    }
+
+    if (!weekend) {
+      if (hasEarlyMorning && jobStart >= 2) {
+        blocks.push({ type:'freelance', time: fmt(jobStart-2)+' – '+fmt(jobStart), label:'โฟกัสงาน 🔥' });
+      }
+      blocks.push({ type:'main', time: fmt(jobStart)+' – '+fmt(jobEnd), label:'งานประจำ' });
+      if (hasLunch) blocks.push({ type:'admin', time:'12:00 – 13:00', label:'ตอบเมลลูกค้า 📬' });
+      if (hasEvening) {
+        const windEnd = jobEnd + 1;
+        const deepEnd = Math.min(jobEnd + 3, 24 - restHrs / 4);
+        blocks.push({ type:'buffer', time: fmt(jobEnd)+' – '+fmt(windEnd), label:'พักก่อนลุย 🍵' });
+        if (deepEnd > windEnd) blocks.push({ type:'freelance', time: fmt(windEnd)+' – '+fmt(deepEnd), label:'โฟกัสงาน 🔥' });
+      }
+      blocks.push({ type:'rest', time: `${restHrs} ชม. สุดท้าย`, label:`พักและนอน 😴` });
+    } else {
+      const doWork = (i === 5 && hasSat) || (i === 6 && hasSun);
+      if (doWork) {
+        blocks.push({ type:'rest', time:'07:00 – 09:00', label:'ชาร์จพลังเช้า ☀️' });
+        blocks.push({ type:'admin', time:'09:00 – 10:00', label:'แพลนงานสัปดาห์ 📋' });
+        blocks.push({ type:'freelance', time:'10:00 – 13:00', label:'โฟกัสงาน 🔥' });
+        blocks.push({ type:'buffer', time:'13:00 – 14:00', label:'พักกินข้าว 🍱' });
+        blocks.push({ type:'freelance', time:'14:00 – 17:00', label:'โฟกัสงาน 🔥' });
+        blocks.push({ type:'rest', time:'17:00 เป็นต้นไป', label:`พัก (${restHrs} ชม.) 🌙` });
+      } else {
+        blocks.push({ type:'rest', time:'ทั้งวัน', label:'พักผ่อน recharge 🌿' });
+      }
+    }
+
+    return { name, blocks, isRest: false };
+  });
+
+  let freelanceHrs = 0;
+  schedule.forEach(d => d.blocks.filter(b => b.type==='freelance').forEach(() => freelanceHrs += 2));
+
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat-card"><div class="stat-val">~${freelanceHrs} ชม.</div><div class="stat-label">ฟรีแลนซ์ต่ออาทิตย์</div></div>
+    <div class="stat-card"><div class="stat-val">${7 - restDaySet.size} วัน</div><div class="stat-label">วันที่แอคทีฟ</div></div>
+    <div class="stat-card"><div class="stat-val">${restHrs} ชม.</div><div class="stat-label">พักต่อวัน (ป้องกันไว้แล้ว)</div></div>
+  `;
+
+  const blockClass = { main:'block-main', freelance:'block-freelance', admin:'block-admin', rest:'block-rest', buffer:'block-buffer' };
+  document.getElementById('week-grid').innerHTML = schedule.map(d => `
+    <div class="day-card ${d.isRest ? 'rest-day' : 'work-day'}">
+      <div class="day-name">${d.name}</div>
+      ${d.blocks.map(b => `
+        <div class="day-block ${blockClass[b.type]}">
+          <div class="block-time">${b.time}</div>
+          <div class="block-label">${b.label}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+
+  const tipsByType = {
+    dev: [
+      { icon:'🧠', title:'Batch งานโค้ดไว้ด้วยกัน', body:'โค้ดต้องการสมาธิต่อเนื่อง จัดบล็อก 2–3 ชั่วโมงต่อครั้ง อย่าทำแบบสะดุดๆ มันไม่เวิร์คเลย' },
+      { icon:'📦', title:'ใช้ Template ซ้ำๆ', body:'สร้าง boilerplate ไว้ครั้งเดียว แล้วหยิบมาใช้ทุกโปรเจกต์ อย่าเริ่มจากศูนย์ทุกครั้ง' },
+      { icon:'🤖', title:'ให้ AI ช่วยงานซ้ำซาก', body:'ใช้ AI ทำ boilerplate เทส และ docs แทน เซฟสมองไว้กับโจทย์ที่ยากจริงๆ' },
+      { icon:'🔒', title:`รักษาเวลาพัก ${restHrs} ชม. ไว้เลย`, body:'ร่างกายพักไม่พอ = โค้ดพัง debugging นานขึ้น และ burnout ตามมา อย่าขายเวลานอน' },
+    ],
+    design: [
+      { icon:'🖼️', title:'เก็บ inspo ไว้เสมอ', body:'ให้สร้างโฟลเดอร์หรือ doc ไว้เก็บงานดีไซน์ที่ชอบ เช่น screenshot เว็บสวยๆ โลโก้เก๋ๆ หรือ UI ที่ปัง ไว้ตลอด' },
+      { icon:'🔁', title:'สร้าง component library ของตัวเอง', body:'ทำ design system ส่วนตัวไว้ แล้วหยิบมา customize ทุกโปรเจกต์ ประหยัดเวลาได้เยอะมาก' },
+      { icon:'📸', title:'ทำงานหลายชิ้นในเซสชั่นเดียว', body:'เปิดหลายไฟล์พร้อมกันในธีมเดียวกัน อย่า context switch บ่อย มัน kill creative flow' },
+      { icon:'🌅', title:'งาน creative ทำตอนเช้าดีที่สุด', body:'สมองสดสุดช่วงเช้า งาน creative ควรมาก่อน งานแก้ไขหรือตอบเมลทำทีหลังได้' },
+    ],
+    writing: [
+      { icon:'📝', title:'Outline ก่อนเขียนทุกครั้ง', body:'ใช้ 10 นาที outline ก่อน เวลาเขียนจริงจะลดลงครึ่งนึง และงานออกมาดีกว่าแน่นอน' },
+      { icon:'🎯', title:'เขียน topic เดียวทีละหลายชิ้น', body:'ถ้าต้องเขียนเรื่องเดียวกันหลายชิ้น ทำรวดเดียวเลย research ยังอยู่ในหัว ประหยัดเวลามาก' },
+      { icon:'🗂️', title:'สร้าง content bank ไว้เลย', body:'เก็บไอเดีย สถิติ และ quote ลง doc ไว้ จะได้ไม่ต้องนั่งมองหน้าจอเปล่าทุกครั้ง' },
+      { icon:'⏳', title:'ลอง Pomodoro เถอะ', body:'เขียน 25 นาที พัก 5 นาที เขียนดูดสมองมาก ใช้ structure ช่วยให้อยู่ได้นานขึ้น' },
+    ],
+    consulting: [
+      { icon:'📅', title:'จัด call ลูกค้าให้อยู่ใน 2 วัน', body:'อย่ากระจาย call ทุกวัน มันเหนื่อยมาก รวมไว้ใน 2 วันต่ออาทิตย์แล้วชีวิตจะดีขึ้นมาก' },
+      { icon:'📄', title:'ทำ template deliverable ไว้เลย', body:'proposal report และ strategy ทำ template ไว้แล้ว customize ทีหลัง อย่าสร้างใหม่จากศูนย์' },
+      { icon:'💬', title:'ตั้ง async-first กับลูกค้าเลย', body:'บอกลูกค้าตั้งแต่แรกว่า reply ภายใน 24 ชั่วโมง ป้องกันชั่วโมงงานประจำถูกรบกวน' },
+      { icon:'🧾', title:'ส่ง invoice ทันทีที่งานผ่าน', body:'อย่าปล่อยให้ admin ค้างสะสม ส่งเลยทันทีที่ลูกค้า approve งาน' },
+    ],
+  };
+
+  const tips = tipsByType[type] || tipsByType['dev'];
+  document.getElementById('tips-grid').innerHTML = tips.map(t => `
+    <div class="tip-card">
+      <div class="tip-icon">${t.icon}</div>
+      <div>
+        <div class="tip-title">${t.title}</div>
+        <div class="tip-body">${t.body}</div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('form-section').style.display = 'none';
+  document.getElementById('output').style.display = 'block';
+  buildGcalEvents(schedule);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function reset() {
+  document.getElementById('form-section').style.display = 'block';
+  document.getElementById('output').style.display = 'none';
+  document.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  Object.keys(selections).forEach(k => selections[k] = null);
+  timePrefs.clear();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ---- GOOGLE CALENDAR ----
+let gcalEvents = [];
+
+function buildGcalEvents(schedule) {
+  gcalEvents = [];
+  const colorMap = { freelance:'#c8f04a', admin:'#f04a8a', buffer:'#f0c84a', rest:'#4ac8f0', main:'#6b6b99' };
+  const today = new Date();
+  // Find next Monday
+  const dayOfWeek = today.getDay(); // 0=Sun
+  const daysToMon = dayOfWeek === 0 ? 1 : (8 - dayOfWeek) % 7 || 7;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + daysToMon);
+
+  schedule.forEach((day, i) => {
+    const date = new Date(monday);
+    date.setDate(monday.getDate() + i);
+    const dateStr = date.toISOString().slice(0,10).replace(/-/g,'');
+
+    day.blocks.forEach(block => {
+      if (block.type === 'rest' && block.time === 'ทั้งวัน') return;
+      if (block.time.includes('ชม. สุดท้าย')) return;
+      if (block.time.includes('เป็นต้นไป')) return;
+
+      const parts = block.time.split(' – ');
+      if (parts.length !== 2) return;
+      const startT = parts[0].replace(':','') + '00';
+      const endT = parts[1].replace(':','') + '00';
+
+      gcalEvents.push({
+        title: block.label.replace(/[\u{1F000}-\u{1FFFF}]/gu,'').trim(),
+        start: dateStr + 'T' + startT,
+        end: dateStr + 'T' + endT,
+        type: block.type,
+        color: colorMap[block.type] || '#888',
+        day: day.name,
+        time: block.time
+      });
+    });
+  });
+
+  renderGcalList();
+}
+
+function makeGcalUrl(ev) {
+  const base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
+  const title = encodeURIComponent('📌 ' + ev.title);
+  return `${base}&text=${title}&dates=${ev.start}/${ev.end}`;
+}
+
+function renderGcalList() {
+  const container = document.getElementById('gcal-events');
+  if (!gcalEvents.length) { container.innerHTML = '<p style="font-size:13px;color:var(--muted)">ไม่มี event ที่ export ได้</p>'; return; }
+
+  container.innerHTML = gcalEvents.map((ev, i) => `
+    <div class="gcal-event-row" id="gcal-row-${i}">
+      <div class="gcal-event-dot" style="background:${ev.color}"></div>
+      <div class="gcal-event-info">
+        <div class="gcal-event-name">${ev.title}</div>
+        <div class="gcal-event-time">${ev.day} · ${ev.time}</div>
+      </div>
+      <a class="gcal-open-btn" href="${makeGcalUrl(ev)}" target="_blank" rel="noopener" onclick="markAdded(${i})">+ เพิ่ม</a>
+    </div>
+  `).join('');
+}
+
+function exportICS() {
+  if (!gcalEvents.length) return;
+
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//FreelancerSideHustlePlanner//TH',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+  ];
+
+  gcalEvents.forEach(ev => {
+    const uid = `${ev.start}-${Math.random().toString(36).slice(2)}@sidehustle`;
+    lines.push('BEGIN:VEVENT');
+    lines.push(`UID:${uid}`);
+    lines.push(`DTSTART:${ev.start}`);
+    lines.push(`DTEND:${ev.end}`);
+    lines.push(`SUMMARY:${ev.title}`);
+    lines.push(`RRULE:FREQ=WEEKLY`);
+    lines.push('END:VEVENT');
+  });
+
+  lines.push('END:VCALENDAR');
+
+  const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'freelance-schedule.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function markAdded(i) {
+  setTimeout(() => {
+    const row = document.getElementById(`gcal-row-${i}`);
+    if (!row) return;
+    const btn = row.querySelector('.gcal-open-btn');
+    if (btn) {
+      btn.textContent = '✓ เพิ่มแล้ว';
+      btn.style.borderColor = 'var(--accent)';
+      btn.style.color = 'var(--accent)';
+      btn.style.pointerEvents = 'none';
+    }
+  }, 300);
+}
+</script>
+</body>
+</html>
